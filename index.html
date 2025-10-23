@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pechay Growth Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 350px;
+    }
+    input[type="range"] {
+      width: 100%;
+      margin: 15px 0;
+    }
+    #results {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+    #pechayImage {
+      margin-top: 15px;
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      border-radius: 10px;
+      transition: 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>🌿 Pechay Growth Predictor</h2>
+    <label for="daySlider">Day: <span id="dayValue">1</span></label>
+    <input type="range" id="daySlider" min="1" max="60" value="1">
+
+    <div id="results"></div>
+    <img id="pechayImage" src="images/seedling.jpg" alt="Pechay Growth Stage">
+  </div>
+
+  <script>
+    const daySlider = document.getElementById('daySlider');
+    const dayValue = document.getElementById('dayValue');
+    const results = document.getElementById('results');
+    const image = document.getElementById('pechayImage');
+
+    daySlider.addEventListener('input', () => {
+      const day = parseInt(daySlider.value);
+      dayValue.textContent = day;
+
+      // Estimated growth data (based on 60 days)
+      const height = (day / 60 * 25 + 2).toFixed(1); // 2cm start, up to ~27cm
+      const leafCount = Math.min(20, Math.floor(day / 3));
+      const greenShade = Math.min(255, 120 + day * 2);
+      let stage, imgSrc;
+
+      // Growth stage + image
+      if (day < 10) {
+        stage = "Seedling 🌱";
+        imgSrc = "images/seedling.jpg";
+      } else if (day < 25) {
+        stage = "Vegetative 🌿";
+        imgSrc = "images/vegetative.jpg";
+      } else if (day < 45) {
+        stage = "Maturing 🪴";
+        imgSrc = "images/maturing.jpg";
+      } else {
+        stage = "Harvest Ready 🧺";
+        imgSrc = "images/harvest.jpg";
+      }
+
+      results.innerHTML = `
+        <strong>Day ${day}</strong><br>
+        Height: <b>${height} cm</b><br>
+        Leaves: <b>${leafCount}</b><br>
+        Color Intensity: <b>rgb(0, ${greenShade}, 0)</b><br>
+        Growth Stage: <b>${stage}</b>
+      `;
+
+      image.src = imgSrc;
+    });
+
+    // Initialize default
+    daySlider.dispatchEvent(new Event('input'));
+  </script>
+</body>
+</html>
