@@ -48,7 +48,7 @@
     <input type="range" id="daySlider" min="1" max="60" value="1">
 
     <div id="results"></div>
-    <img id="pechayImage" src="images/seedling.jpg" alt="Pechay Growth Stage">
+    <img id="pechayImage" src="seedling.jpg" alt="Pechay Growth Stage">
   </div>
 
   <script>
@@ -61,13 +61,11 @@
       const day = parseInt(daySlider.value);
       dayValue.textContent = day;
 
-      // Estimated growth data (based on 60 days)
-      const height = (day / 60 * 25 + 2).toFixed(1); // 2cm start, up to ~27cm
+      const height = (day / 60 * 25 + 2).toFixed(1);
       const leafCount = Math.min(20, Math.floor(day / 3));
       const greenShade = Math.min(255, 120 + day * 2);
       let stage, imgSrc;
 
-      // Growth stage + image
       if (day < 10) {
         stage = "Seedling 🌱";
         imgSrc = "seedling.jpg";
@@ -93,7 +91,6 @@
       image.src = imgSrc;
     });
 
-    // Initialize default
     daySlider.dispatchEvent(new Event('input'));
   </script>
 </body>
