@@ -57,27 +57,31 @@
     const results = document.getElementById('results');
     const image = document.getElementById('pechayImage');
 
+    // Real data arrays
+    const heights = [1.8, 2.3, 2.9, 3.8, 4.7, 5.5, 6.4, 7.5, 8.7, 9.8, 10.9, 12.1, 13.3, 14.6, 15.9];
+    const leafSizes = [1.2, 1.8, 2.6, 3.5, 4.8, 6.1, 7.5, 9.0, 10.8, 12.6, 14.7, 16.9, 19.2, 21.7, 24.3];
+    const leaves = [2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
+
     daySlider.addEventListener('input', () => {
       const day = parseInt(daySlider.value);
       dayValue.textContent = day;
 
-      // Simulated growth
-      const height = (day * 1.5 + 1.5).toFixed(1); // 1.5 cm growth per day
-      const leafSize = (day * 0.8 + 1).toFixed(1); // 0.8 cm growth per day
-      const leaves = Math.min(10, Math.floor(day / 2)); // 1 leaf every 2 days
+      const height = heights[day - 1];
+      const leafSize = leafSizes[day - 1];
+      const leafCount = leaves[day - 1];
 
       // Image changes by stage
       let imgSrc;
       if (day <= 5) imgSrc = "seedling.jpg";
       else if (day <= 10) imgSrc = "vegetative.jpg";
       else if (day < 15) imgSrc = "maturing.jpg";
-      else imgSrc = "harvest.jpg"; // final day - harvest
+      else imgSrc = "harvest.jpg"; // final day
 
       results.innerHTML = `
         <strong>Day ${day}</strong><br>
         Plant Height: <b>${height} cm</b><br>
         Leaf Size: <b>${leafSize} cm</b><br>
-        No. of Leaves: <b>${leaves}</b>
+        No. of Leaves: <b>${leafCount}</b>
       `;
 
       image.src = imgSrc;
