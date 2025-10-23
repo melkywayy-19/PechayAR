@@ -48,7 +48,7 @@
     <input type="range" id="daySlider" min="1" max="15" value="1">
 
     <div id="results"></div>
-    <img id="pechayImage" src="seedling.jpg" alt="Pechay Growth Stage">
+    <img id="pechayImage" src="pechay_2.jpg" alt="Pechay Growth Stage">
   </div>
 
   <script>
@@ -70,12 +70,8 @@
       const leafSize = leafSizes[day - 1];
       const leafCount = leaves[day - 1];
 
-      // 🌾 Change image based on growth stage
-      let imgSrc;
-      if (day <= 5) imgSrc = "seedling.jpg";
-      else if (day <= 10) imgSrc = "vegetative.jpg";
-      else if (day < 15) imgSrc = "maturing.jpg";
-      else imgSrc = "harvest.jpg"; // final day
+      // 🌾 Image changes based on number of leaves
+      const imgSrc = `pechay_${leafCount}.jpg`;
 
       results.innerHTML = `
         <strong>Day ${day}</strong><br>
